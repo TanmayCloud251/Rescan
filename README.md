@@ -2,7 +2,7 @@
 
 Project Overview
 
-Rescan is a vocational training project focused on developing a smart, data-driven tool to help job seekers bypass the automated screening phase of hiring. Applicant Tracking Systems (ATS) automatically filter over 75% of resumes; Rescan bridges this gap by providing objective, actionable feedback to maximize a resume's compatibility and professional quality.
+Rescan is a project focused on developing a smart, data-driven tool to help job seekers bypass the automated screening phase of hiring. Applicant Tracking Systems (ATS) automatically filter over 75% of resumes; Rescan bridges this gap by providing objective, actionable feedback to maximize a resume's compatibility and professional quality.
 
 
 ✨ Key Features
