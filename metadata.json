@@ -1,0 +1,5 @@
+{
+  "name": "Rescan",
+  "description": "An intelligent resume analyzer that provides ATS scores, grammatical checks, and actionable feedback using Gemini 2.5 Flash.",
+  "requestFramePermissions": []
+}
