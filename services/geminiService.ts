@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { AnalysisResult, IssueSeverity } from "../types";
 
@@ -41,7 +42,7 @@ const analysisSchema = {
 export const analyzeResume = async (fileBase64: string, mimeType: string, fileName: string): Promise<AnalysisResult> => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3-flash-preview",
       contents: {
         parts: [
           {
@@ -54,13 +55,15 @@ export const analyzeResume = async (fileBase64: string, mimeType: string, fileNa
             text: `Analyze this resume as an expert recruiter and Applicant Tracking System (ATS). 
             Provide a detailed analysis including an ATS score, grammar check, formatting review, and specific actionable feedback.
             Identify key hard and soft skills present or missing as 'keywords'.
-            Be strict but constructive.`
+            Be strict but constructive. Ensure your evaluation is consistent and based on industry standards.`
           },
         ],
       },
       config: {
         responseMimeType: "application/json",
         responseSchema: analysisSchema,
+        temperature: 0, // Ensures deterministic output for the same input
+        seed: 42,       // Provides a fixed starting point for randomness to ensure consistency
       },
     });
 

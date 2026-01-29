@@ -1,3 +1,4 @@
+
 export enum AppView {
   LANDING = 'LANDING',
   DASHBOARD = 'DASHBOARD',
@@ -34,4 +35,5 @@ export interface HistoryItem {
   fileName: string;
   date: string;
   atsScore: number;
+  fullResult: AnalysisResult;
 }

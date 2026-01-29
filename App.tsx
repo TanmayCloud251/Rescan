@@ -1,16 +1,44 @@
+
 import React, { useState } from 'react';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import AnalysisResultView from './components/AnalysisResult';
-import { AppView, AnalysisResult } from './types';
+import { AppView, AnalysisResult, HistoryItem } from './types';
 import { analyzeResume, helperFileToBase64 } from './services/geminiService';
 import { Loader2 } from 'lucide-react';
+
+const generateId = () => {
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<AppView>(AppView.LANDING);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const saveToHistory = (result: AnalysisResult) => {
+    try {
+      const historyJson = localStorage.getItem('rescan_history');
+      const history: HistoryItem[] = historyJson ? JSON.parse(historyJson) : [];
+      
+      const newItem: HistoryItem = {
+        id: generateId(),
+        fileName: result.fileName,
+        date: new Date().toISOString(),
+        atsScore: result.atsScore,
+        fullResult: result
+      };
+      
+      const updatedHistory = [newItem, ...history];
+      localStorage.setItem('rescan_history', JSON.stringify(updatedHistory));
+    } catch (error) {
+      console.error("Failed to save history", error);
+    }
+  };
 
   const handleFileSelect = async (file: File) => {
     setIsLoading(true);
@@ -19,6 +47,7 @@ const App: React.FC = () => {
       const base64 = await helperFileToBase64(file);
       const result = await analyzeResume(base64, file.type, file.name);
       setAnalysisResult(result);
+      saveToHistory(result);
       setCurrentView(AppView.RESULT);
     } catch (error) {
       console.error("Analysis failed", error);
@@ -27,6 +56,11 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleViewHistoryItem = (item: HistoryItem) => {
+    setAnalysisResult(item.fullResult);
+    setCurrentView(AppView.RESULT);
   };
 
   const handleReanalyze = () => {
@@ -76,7 +110,7 @@ const App: React.FC = () => {
         );
 
       case AppView.DASHBOARD:
-        return <Dashboard />;
+        return <Dashboard onViewResult={handleViewHistoryItem} />;
 
       default:
         return <LandingPage onFileSelect={handleFileSelect} />;
@@ -90,7 +124,7 @@ const App: React.FC = () => {
         {renderContent()}
       </main>
       
-      {currentView === AppView.LANDING && (
+      {(currentView === AppView.LANDING || currentView === AppView.DASHBOARD) && (
         <footer className="bg-slate-950 border-t border-slate-900 py-12">
             <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
                 <p>Tanmay Mishra</p>
