@@ -5,7 +5,7 @@ import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import AnalysisResultView from './components/AnalysisResult';
 import { AppView, AnalysisResult, HistoryItem } from './types';
-import { analyzeResume, helperFileToBase64 } from './services/geminiService';
+import { analyzeResume } from './services/groqService';
 import { Loader2 } from 'lucide-react';
 
 const generateId = () => {
@@ -44,8 +44,7 @@ const App: React.FC = () => {
     setIsLoading(true);
     setCurrentView(AppView.ANALYZING);
     try {
-      const base64 = await helperFileToBase64(file);
-      const result = await analyzeResume(base64, file.type, file.name);
+      const result = await analyzeResume(file);
       setAnalysisResult(result);
       saveToHistory(result);
       setCurrentView(AppView.RESULT);
