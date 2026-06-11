@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import AnalysisResultView from './components/AnalysisResult';
@@ -124,16 +125,7 @@ const App: React.FC = () => {
       </main>
       
       {(currentView === AppView.LANDING || currentView === AppView.DASHBOARD) && (
-        <footer className="bg-slate-950 border-t border-slate-900 py-12">
-            <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
-                <p>Tanmay Mishra</p>
-                <div className="flex justify-center gap-6 mt-4">
-                    <a href="mailto:tanmaycloud251@gmail.com" className="hover:text-white transition-colors">Mail</a>
-                    <a href="https://github.com/TanmayCloud251" className="hover:text-white transition-colors">Github</a>
-                    <a href="https://www.instagram.com/tanmaymishra251" className="hover:text-white transition-colors">Instagram</a>
-                </div>
-            </div>
-        </footer>
+        <Footer />
       )}
     </div>
   );

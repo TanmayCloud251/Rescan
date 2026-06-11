@@ -1,10 +1,10 @@
 import Groq from "groq-sdk";
 import * as pdfjs from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 import { AnalysisResult, IssueSeverity } from "../types";
 
 // Initialize pdfjs worker
-// Use a CDN for the worker to avoid complex build setup
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
 const groq = new Groq({ 
     apiKey: process.env.GROQ_API_KEY,
@@ -12,6 +12,8 @@ const groq = new Groq({
 });
 
 const ANALYSIS_PROMPT = `Analyze this resume as an expert recruiter and Applicant Tracking System (ATS). 
+The input text provided is raw text extracted from a document. Please ignore minor spacing, alignment, or line-break artifacts caused by the extraction process.
+
 Provide a detailed analysis in JSON format following this exact schema:
 
 {
@@ -31,7 +33,12 @@ Provide a detailed analysis in JSON format following this exact schema:
   "keywords": ["top 5-10 keywords"]
 }
 
-Be strict but constructive. Ensure your evaluation is consistent and based on industry standards.`;
+Evaluation Guidelines:
+1. Be strict but constructive, focusing on content, impact, and professional standards.
+2. Contact Information: Only flag as "Critical" if essential information (Name, Email, or Phone) is missing or blatantly unprofessional. Do NOT penalize the layout or order of contact details, as these are often jumbled during text extraction.
+3. Formatting: Evaluate logical formatting (consistent dates, clear section headers, bullet point usage) rather than visual alignment.
+4. Summary: Provide a concise, professional overview of the candidate's profile.
+5. ATS Compatibility: Check for the presence of standard sections and relevant keywords.`;
 
 export const extractTextFromPDF = async (file: File): Promise<string> => {
   const arrayBuffer = await file.arrayBuffer();
@@ -41,8 +48,35 @@ export const extractTextFromPDF = async (file: File): Promise<string> => {
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
-    const pageText = textContent.items.map((item: any) => item.str).join(" ");
-    fullText += pageText + "\n";
+    
+    let lastY = -1;
+    let pageText = "";
+    
+    // Sort items by Y (top to bottom) and then X (left to right)
+    // In PDF coordinates, Y increases from bottom to top, so we sort Y descending.
+    const items = [...textContent.items as any[]].sort((a, b) => {
+      const yDiff = b.transform[5] - a.transform[5];
+      if (Math.abs(yDiff) > 5) return yDiff;
+      return a.transform[4] - b.transform[4];
+    });
+    
+    for (const item of items) {
+      const currentY = item.transform[5];
+      
+      if (lastY !== -1 && Math.abs(currentY - lastY) > 5) {
+        pageText += "\n";
+      } else if (lastY !== -1) {
+        // Only add space if there's actual content and it doesn't already end/start with one
+        if (pageText.length > 0 && !pageText.endsWith(" ") && !item.str.startsWith(" ")) {
+          pageText += " ";
+        }
+      }
+      
+      pageText += item.str;
+      lastY = currentY;
+    }
+    
+    fullText += pageText + "\n\n";
   }
 
   return fullText;
