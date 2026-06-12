@@ -7,11 +7,13 @@ import {
   TrendingDown, 
   Inbox, 
   Trash2, 
-  Eye, 
   BarChart3,
   Calendar,
   Zap,
-  Activity
+  Activity,
+  Award,
+  Briefcase,
+  User
 } from 'lucide-react';
 
 interface DashboardProps {
@@ -104,201 +106,255 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
   }, [history, sortBy]);
 
   return (
-    <div className="min-h-screen bg-slate-950 p-4 md:p-12 text-slate-200 relative overflow-hidden">
-      {/* Visual background element */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="min-h-screen bg-slate-950 p-6 md:p-12 text-slate-200 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-[-10%] right-[-10%] w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className={`container mx-auto max-w-7xl space-y-12 relative z-10 transition-opacity duration-300 ${isDeletingAll ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`container mx-auto max-w-7xl space-y-10 relative z-10 transition-opacity duration-500 ${isDeletingAll ? 'opacity-0' : 'opacity-100'}`}>
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-600/10 rounded-lg">
-                    <BarChart3 className="w-5 h-5 text-blue-500" />
-                  </div>
-                  <h1 className="text-4xl font-black text-white tracking-tighter uppercase">Analytics Hub</h1>
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800/50 pb-10">
+            <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider">
+                  <Activity className="w-3 h-3" /> System Operational
                 </div>
-                <p className="text-slate-500 font-medium">Monitoring your evolution through recruiter-grade metrics.</p>
+                <h1 className="text-5xl font-black text-white tracking-tight">
+                  Recruitment <span className="text-slate-500">Dashboard</span>
+                </h1>
+                <p className="text-slate-400 max-w-md">
+                  Professional-grade analysis of your professional trajectory. Review, optimize, and excel.
+                </p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
                 {history.length > 0 && (
                   <button 
-                    type="button"
                     onClick={handleClearAll}
-                    className="group px-5 py-2.5 rounded-xl border border-red-900/30 bg-red-900/10 hover:bg-red-900/20 text-red-400 text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2"
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-400 transition-all text-sm font-bold text-slate-400"
                   >
-                    <Trash2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-                    Reset History
+                    <Trash2 className="w-4 h-4" />
+                    Purge History
                   </button>
                 )}
-                <div className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm text-xs font-bold text-slate-400 uppercase tracking-widest">
-                    <Activity className="w-3.5 h-3.5 text-blue-500" /> 
-                    Live Updates
+                <div className="h-10 w-10 rounded-full border border-slate-800 bg-slate-900 flex items-center justify-center text-blue-500">
+                    <User className="w-5 h-5" />
                 </div>
             </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="relative group overflow-hidden bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-blue-500/50 transition-all shadow-2xl">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Zap className="w-24 h-24 text-blue-500" />
-                </div>
-                <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">Average Quality</h3>
-                <div className="flex items-end gap-4">
-                    <span className="text-6xl font-black text-white tracking-tighter leading-none">{stats.avgScore}</span>
+        {/* Executive Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {/* Avg Score */}
+            <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-2.5 bg-blue-500/10 rounded-xl text-blue-500">
+                        <Zap className="w-5 h-5" />
+                    </div>
                     {history.length > 1 && (
-                        <div className={`mb-1 flex items-center text-xs font-black px-3 py-1.5 rounded-lg ${stats.trend >= 0 ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
-                            {stats.trend >= 0 ? <TrendingUp className="w-3.5 h-3.5 mr-1" /> : <TrendingDown className="w-3.5 h-3.5 mr-1" />}
-                            {stats.trend > 0 ? `+${stats.trend}` : stats.trend}%
+                        <div className={`flex items-center text-[10px] font-bold px-2 py-1 rounded-md ${stats.trend >= 0 ? 'bg-green-500/10 text-green-500' : 'bg-red-500/10 text-red-500'}`}>
+                            {stats.trend >= 0 ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                            {Math.abs(stats.trend)}%
                         </div>
                     )}
                 </div>
-                <div className="mt-4 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-600 rounded-full" style={{ width: `${stats.avgScore}%` }}></div>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Average Score</p>
+                <h3 className="text-3xl font-black text-white">{stats.avgScore}<span className="text-sm text-slate-600 ml-1 font-bold">/100</span></h3>
+                <div className="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-500 group-hover:bg-blue-400 transition-colors" style={{ width: `${stats.avgScore}%` }}></div>
                 </div>
             </div>
 
-            <div className="relative group overflow-hidden bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-indigo-500/50 transition-all shadow-2xl">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Award className="w-24 h-24 text-indigo-500" />
+            {/* Peak Performance */}
+            <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-2.5 bg-indigo-500/10 rounded-xl text-indigo-500">
+                        <Award className="w-5 h-5" />
+                    </div>
                 </div>
-                <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">Personal Peak</h3>
-                <div className="flex items-end gap-3">
-                    <span className="text-6xl font-black text-white tracking-tighter leading-none">{stats.highestScore}</span>
-                    <span className="text-xs font-black text-slate-600 uppercase mb-1">Max Score</span>
-                </div>
-                <div className="mt-4 w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${stats.highestScore}%` }}></div>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Peak Score</p>
+                <h3 className="text-3xl font-black text-white">{stats.highestScore}<span className="text-sm text-slate-600 ml-1 font-bold">MAX</span></h3>
+                <div className="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-indigo-500 group-hover:bg-indigo-400 transition-colors" style={{ width: `${stats.highestScore}%` }}></div>
                 </div>
             </div>
 
-            <div className="relative group overflow-hidden bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-amber-500/50 transition-all shadow-2xl">
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <FileText className="w-24 h-24 text-amber-500" />
+            {/* Total Analyzed */}
+            <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-2.5 bg-amber-500/10 rounded-xl text-amber-500">
+                        <FileText className="w-5 h-5" />
+                    </div>
                 </div>
-                <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.2em] mb-4">Total Audits</h3>
-                <div className="flex items-end gap-3">
-                    <span className="text-6xl font-black text-white tracking-tighter leading-none">{stats.total}</span>
-                    <span className="text-xs font-black text-slate-600 uppercase mb-1">Analyzed</span>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Total Audits</p>
+                <h3 className="text-3xl font-black text-white">{stats.total}<span className="text-sm text-slate-600 ml-1 font-bold">SCANS</span></h3>
+                <p className="mt-2 text-[10px] text-slate-500 font-medium">History depth: {history.length} items</p>
+            </div>
+
+            {/* Efficiency */}
+            <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors group">
+                <div className="flex justify-between items-start mb-4">
+                    <div className="p-2.5 bg-emerald-500/10 rounded-xl text-emerald-500">
+                        <Briefcase className="w-5 h-5" />
+                    </div>
                 </div>
-                <div className="mt-4 flex items-center gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                        <div key={i} className={`h-1.5 flex-1 rounded-full ${i <= stats.total ? 'bg-amber-500' : 'bg-slate-800'}`}></div>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Market Readiness</p>
+                <h3 className="text-3xl font-black text-white">{stats.avgScore > 75 ? 'HIGH' : stats.avgScore > 50 ? 'MID' : 'LOW'}</h3>
+                <div className="mt-4 flex gap-1">
+                    {[1, 2, 3, 4, 5].map(i => (
+                        <div key={i} className={`h-1 flex-1 rounded-full ${i <= (stats.avgScore / 20) ? 'bg-emerald-500' : 'bg-slate-800'}`}></div>
                     ))}
                 </div>
             </div>
         </div>
 
-        {/* Analytics Section */}
-        <div className="grid lg:grid-cols-3 gap-12">
+        {/* Main Content Area */}
+        <div className="grid lg:grid-cols-12 gap-8">
             
-            {/* Chart Column */}
-            <div className="lg:col-span-2 space-y-8">
-                <div className="bg-slate-900/40 p-8 rounded-[2rem] border border-slate-800 backdrop-blur-md shadow-2xl">
-                    <div className="flex justify-between items-center mb-12">
+            {/* Analytics Visualizer */}
+            <div className="lg:col-span-8 space-y-6">
+                <div className="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 backdrop-blur-sm">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
                         <div>
-                            <h2 className="text-2xl font-black text-white uppercase tracking-tight">Performance Curve</h2>
-                            <p className="text-sm text-slate-500 font-medium">Tracking score velocity over time</p>
+                            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                                <BarChart3 className="w-5 h-5 text-blue-500" />
+                                Growth Trajectory
+                            </h2>
+                            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Last 10 Performance Metrics</p>
                         </div>
                     </div>
                     
-                    <div className="h-[350px] w-full">
+                    <div className="h-[300px] w-full">
                         {history.length > 0 ? (
-                            <ResponsiveContainer width="100%" height="100%" key={history.length}>
-                                <AreaChart data={chartData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={chartData}>
                                     <defs>
                                         <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4}/>
+                                            <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2}/>
                                             <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                                         </linearGradient>
                                     </defs>
-                                    <CartesianGrid strokeDasharray="6 6" vertical={false} stroke="#1e293b" />
-                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#475569', fontSize: 10, fontWeight: 700}} dy={15} />
-                                    <YAxis axisLine={false} tickLine={false} tick={{fill: '#475569', fontSize: 10, fontWeight: 700}} domain={[0, 100]} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+                                    <XAxis 
+                                        dataKey="name" 
+                                        axisLine={false} 
+                                        tickLine={false} 
+                                        tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+                                        dy={10} 
+                                    />
+                                    <YAxis 
+                                        axisLine={false} 
+                                        tickLine={false} 
+                                        tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+                                        domain={[0, 100]} 
+                                    />
                                     <Tooltip 
-                                        contentStyle={{ backgroundColor: '#020617', border: '1px solid #1e293b', borderRadius: '16px', color: '#f8fafc', fontWeight: 'bold' }}
-                                        itemStyle={{ color: '#3b82f6' }}
-                                        cursor={{ stroke: '#3b82f6', strokeWidth: 2, strokeDasharray: '4 4' }}
+                                        contentStyle={{ backgroundColor: '#0f172a', border: '1px solid #1e293b', borderRadius: '12px', color: '#f8fafc' }}
+                                        cursor={{ stroke: '#3b82f6', strokeWidth: 1 }}
                                     />
                                     <Area 
                                         type="monotone" 
                                         dataKey="score" 
                                         stroke="#3b82f6" 
-                                        strokeWidth={4} 
+                                        strokeWidth={3} 
                                         fillOpacity={1} 
                                         fill="url(#colorScore)" 
-                                        animationDuration={1200}
+                                        animationDuration={1500}
                                     />
                                 </AreaChart>
                             </ResponsiveContainer>
                         ) : (
-                            <div className="h-full flex flex-col items-center justify-center text-slate-700 border-2 border-dashed border-slate-800 rounded-3xl bg-slate-950/50">
-                                <Inbox className="w-16 h-16 mb-4 opacity-20" />
-                                <p className="text-sm font-bold uppercase tracking-widest">No metrics detected.</p>
+                            <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-slate-800 rounded-2xl bg-slate-950/50">
+                                <Inbox className="w-12 h-12 text-slate-700 mb-3" />
+                                <p className="text-sm font-bold text-slate-600 uppercase tracking-widest">Awaiting Analysis Data</p>
                             </div>
                         )}
                     </div>
                 </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6">
+                        <h4 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                            <Zap className="w-4 h-4 text-amber-500" />
+                            AI Insight
+                        </h4>
+                        <p className="text-sm text-slate-400 leading-relaxed">
+                            {history.length > 0 
+                                ? `Your latest score of ${history[0].atsScore} shows ${history[0].atsScore > 80 ? 'excellent' : 'strong'} alignment with ATS standards. Focusing on quantifiable impact could push you even higher.`
+                                : "Start your first analysis to receive personalized AI-driven career insights and improvement strategies."}
+                        </p>
+                    </div>
+                    <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-6 flex flex-col justify-center">
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shrink-0">
+                                <TrendingUp className="w-6 h-6" />
+                            </div>
+                            <div>
+                                <h5 className="font-bold text-white">Career Acceleration</h5>
+                                <p className="text-xs text-slate-500">Optimized resumes are 3x more likely to land interviews.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* List Column */}
-            <div className="lg:col-span-1">
-                <div className="bg-slate-900/40 rounded-[2rem] border border-slate-800 backdrop-blur-md shadow-2xl h-full flex flex-col">
-                    <div className="p-8 border-b border-slate-800 flex justify-between items-center">
-                        <h2 className="text-xl font-black text-white uppercase tracking-tight">Recent Scans</h2>
+            {/* Document Ledger */}
+            <div className="lg:col-span-4">
+                <div className="bg-slate-900/40 border border-slate-800 rounded-3xl backdrop-blur-sm h-full flex flex-col">
+                    <div className="p-6 border-b border-slate-800/50 flex justify-between items-center">
+                        <div>
+                            <h2 className="text-lg font-bold text-white">Recent Scans</h2>
+                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Document History</p>
+                        </div>
                         <select 
                           value={sortBy}
                           onChange={(e) => setSortBy(e.target.value as any)}
-                          className="bg-slate-950 border-slate-800 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all cursor-pointer"
+                          className="bg-slate-950 border border-slate-800 rounded-lg text-[9px] font-black uppercase tracking-widest text-slate-400 px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
                         >
                             <option value="date">Date</option>
                             <option value="score">Score</option>
                         </select>
                     </div>
                     
-                    <div className="flex-1 overflow-y-auto max-h-[500px] custom-scrollbar">
+                    <div className="flex-1 overflow-y-auto max-h-[600px] custom-scrollbar">
                         {sortedHistory.length > 0 ? (
                             sortedHistory.map((item) => (
                                 <div 
                                     key={item.id} 
                                     onClick={() => onViewResult(item)}
-                                    className="p-6 border-b border-slate-800 hover:bg-slate-800/30 transition-all cursor-pointer group"
+                                    className="p-5 border-b border-slate-800/30 hover:bg-slate-800/20 transition-all cursor-pointer group"
                                 >
-                                    <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-start justify-between mb-4">
                                         <div className="flex items-center gap-3 min-w-0">
-                                            <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center group-hover:bg-blue-600 transition-all">
-                                                <FileText className="w-5 h-5 text-slate-500 group-hover:text-white" />
+                                            <div className="w-10 h-10 bg-slate-800 border border-slate-700 rounded-xl flex items-center justify-center group-hover:bg-blue-600 group-hover:border-blue-500 transition-all shrink-0">
+                                                <FileText className="w-5 h-5 text-slate-400 group-hover:text-white" />
                                             </div>
                                             <div className="min-w-0">
                                                 <h4 className="font-bold text-white text-sm truncate group-hover:text-blue-500 transition-colors">
                                                     {item.fileName}
                                                 </h4>
-                                                <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase tracking-tighter mt-1">
+                                                <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase mt-1">
                                                     <Calendar className="w-3 h-3" />
                                                     {new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="text-right shrink-0">
-                                            <div className={`text-2xl font-black leading-none ${
+                                        <div className="text-right">
+                                            <span className={`text-xl font-black ${
                                                 item.atsScore >= 80 ? 'text-green-500' : 
                                                 item.atsScore >= 60 ? 'text-amber-500' : 'text-red-500'
                                             }`}>
                                                 {item.atsScore}
-                                            </div>
-                                            <div className="text-[8px] font-black text-slate-600 uppercase mt-1 tracking-widest">ATS Score</div>
+                                            </span>
                                         </div>
                                     </div>
                                     
-                                    <div className="flex items-center gap-3">
-                                        <button className="flex-1 h-10 bg-slate-800 hover:bg-blue-600 text-slate-400 hover:text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
-                                            Open Report
+                                    <div className="flex items-center gap-2">
+                                        <button className="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all">
+                                            View Report
                                         </button>
                                         <button 
                                           onClick={(e) => handleDelete(item.id, e)}
-                                          className="w-10 h-10 flex items-center justify-center bg-slate-800 hover:bg-red-500/20 text-slate-600 hover:text-red-500 rounded-xl transition-all"
+                                          className="p-2 bg-slate-800 hover:bg-red-500/10 text-slate-500 hover:text-red-500 rounded-lg transition-all"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
@@ -307,7 +363,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                             ))
                         ) : (
                             <div className="p-12 text-center">
-                                <p className="text-xs font-black text-slate-600 uppercase tracking-[0.2em]">Queue is empty</p>
+                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">No documents found</p>
                             </div>
                         )}
                     </div>
@@ -326,9 +382,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #1e293b;
           border-radius: 10px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #334155;
         }
       `}</style>
     </div>

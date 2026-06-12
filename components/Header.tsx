@@ -5,9 +5,10 @@ import { AppView } from '../types';
 interface HeaderProps {
   currentView: AppView;
   setView: (view: AppView) => void;
+  onStartAnalysis: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentView, setView }) => {
+const Header: React.FC<HeaderProps> = ({ currentView, setView, onStartAnalysis }) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -29,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ currentView, setView }) => {
                 Dashboard
             </button>
             <button 
-                onClick={() => setView(AppView.LANDING)}
+                onClick={onStartAnalysis}
                 className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-lg shadow-blue-900/20"
             >
                 Start Analysis

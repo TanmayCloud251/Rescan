@@ -68,6 +68,18 @@ const App: React.FC = () => {
     setCurrentView(AppView.LANDING);
   };
 
+  const handleStartAnalysis = () => {
+    setCurrentView(AppView.LANDING);
+    setTimeout(() => {
+      const element = document.getElementById('upload-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const renderContent = () => {
     switch (currentView) {
       case AppView.LANDING:
@@ -119,7 +131,11 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30 selection:text-blue-200">
-      <Header currentView={currentView} setView={setCurrentView} />
+      <Header 
+        currentView={currentView} 
+        setView={setCurrentView} 
+        onStartAnalysis={handleStartAnalysis} 
+      />
       <main>
         {renderContent()}
       </main>

@@ -40,7 +40,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
             </p>
           </div>
 
-          <div className="relative group max-w-3xl mx-auto">
+          <div id="upload-section" className="relative group max-w-3xl mx-auto">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative">
               <FileUpload onFileSelect={onFileSelect} />
@@ -139,7 +139,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
           <div className="container mx-auto px-4 max-w-6xl relative z-10">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
                   <div>
-                      <div className="text-5xl font-black text-white mb-2">50K+</div>
+                      <div className="text-5xl font-black text-white mb-2">500+</div>
                       <div className="text-blue-100 font-semibold text-sm uppercase tracking-wider">Resumes Analyzed</div>
                   </div>
                   <div>
@@ -158,50 +158,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
           </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-32 bg-slate-950">
-          <div className="container mx-auto px-4 max-w-6xl">
-              <div className="text-center mb-20">
-                  <h2 className="text-4xl font-black text-white">Trusted by Career Seekers.</h2>
-                  <p className="text-slate-500 mt-4 max-w-lg mx-auto">See how Rescan has changed the job search game for candidates globally.</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {[
-                      {
-                          name: "Sarah Jenkins",
-                          role: "Software Engineer",
-                          text: "I was applying for months with no luck. Rescan pointed out my ATS headers were broken. Fixed it, and got 3 interviews in a week.",
-                          image: "SJ"
-                      },
-                      {
-                          name: "Marcus Chen",
-                          role: "Product Manager",
-                          text: "The grammar check caught subtle passive-voice issues I completely missed. The AI summary is also perfect for my LinkedIn profile.",
-                          image: "MC"
-                      },
-                      {
-                          name: "Elena Rodriguez",
-                          role: "UX Designer",
-                          text: "Product-grade analysis for free? Unbelievable. The layout feedback helped me balance my visual design with ATS readability.",
-                          image: "ER"
-                      }
-                  ].map((t, idx) => (
-                      <div key={idx} className="bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:bg-slate-900 transition-colors">
-                          <div className="flex items-center gap-4 mb-6">
-                              <div className="w-12 h-12 bg-blue-600/20 rounded-full flex items-center justify-center text-blue-500 font-bold">{t.image}</div>
-                              <div>
-                                  <h4 className="text-white font-bold">{t.name}</h4>
-                                  <p className="text-xs text-slate-500">{t.role}</p>
-                              </div>
-                          </div>
-                          <p className="text-slate-400 italic leading-relaxed">"{t.text}"</p>
-                      </div>
-                  ))}
-              </div>
-          </div>
-      </section>
-
       {/* Final CTA */}
       <section className="py-32 bg-slate-950 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[150px] pointer-events-none"></div>
@@ -209,7 +165,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
               <h2 className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter">Ready to Beat the <br />Competition?</h2>
               <p className="text-xl text-slate-400 mb-12 max-w-xl mx-auto">Join thousands of successful candidates. Analyze your resume now.</p>
               <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => document.getElementById('upload-section')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
               >
                   Get Started for Free
