@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
@@ -129,8 +130,59 @@ const App: React.FC = () => {
     }
   };
 
+  const getSeoMetadata = () => {
+    switch (currentView) {
+      case AppView.LANDING:
+        return {
+          title: "Rescan - AI Resume Analyzer & ATS Checker",
+          description: "Free AI resume analyzer & ATS scanner. Audit your CV for keyword gaps, formatting, and grammar errors using advanced AI. Optimize your resume & get hired!",
+          canonical: "https://rescan-ai.vercel.app/"
+        };
+      case AppView.DASHBOARD:
+        return {
+          title: "Dashboard | Rescan Resume Scanner",
+          description: "Access your Rescan dashboard to manage past resume audits, monitor ATS compatibility progress, and continue optimizing your CV for search and recruiter match.",
+          canonical: "https://rescan-ai.vercel.app/dashboard"
+        };
+      case AppView.ANALYZING:
+        return {
+          title: "Analyzing Resume... | Rescan",
+          description: "Analyzing your resume for ATS optimization... Our AI-powered scanner is auditing your CV against industry standards, parsing keywords, and formatting.",
+          canonical: "https://rescan-ai.vercel.app/analyzing"
+        };
+      case AppView.RESULT:
+        return {
+          title: analysisResult 
+            ? `ATS Score: ${analysisResult.atsScore}/100 - ${analysisResult.fileName} | Rescan`
+            : "Analysis Results | Rescan",
+          description: analysisResult
+            ? `Detailed ATS resume scan results for ${analysisResult.fileName}. Your score is ${analysisResult.atsScore}/100. Check keywords breakdown, grammar, and formatting fixes.`
+            : "Review your detailed ATS score, keywords analysis, structure checks, and resume improvement recommendations.",
+          canonical: "https://rescan-ai.vercel.app/results"
+        };
+      default:
+        return {
+          title: "Rescan - AI Resume Analyzer & ATS Checker",
+          description: "Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters.",
+          canonical: "https://rescan-ai.vercel.app/"
+        };
+    }
+  };
+
+  const seo = getSeoMetadata();
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30 selection:text-blue-200">
+      <Helmet>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <link rel="canonical" href={seo.canonical} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.description} />
+        <meta property="og:url" content={seo.canonical} />
+        <meta property="twitter:title" content={seo.title} />
+        <meta property="twitter:description" content={seo.description} />
+      </Helmet>
       <Header 
         currentView={currentView} 
         setView={setCurrentView} 
