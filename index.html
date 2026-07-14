@@ -1,54 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rescan - AI Resume Analyzer & ATS Checker</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
-    <meta name="keywords" content="AI resume analyzer, ATS checker, CV review, resume audit, job application, AI resume scanner, resume optimizer, resume keywords" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://rescan.netlify.app/" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rescan.netlify.app/" />
-    <meta property="og:title" content="Rescan - AI Resume Analyzer & ATS Checker" />
-    <meta property="og:description" content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
-    <meta property="og:image" content="https://rescan.netlify.app/preview.png" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://rescan.netlify.app/" />
-    <meta property="twitter:title" content="Rescan - AI Resume Analyzer & ATS Checker" />
-    <meta property="twitter:description" content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
-    <meta property="twitter:image" content="https://rescan.netlify.app/preview.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rescan - AI Resume Analyzer & ATS Checker</title>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #020617; /* slate-950 */
-        color: #f8fafc; /* slate-50 */
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
+  <meta name="keywords"
+    content="AI resume analyzer, ATS checker, CV review, resume audit, job application, AI resume scanner, resume optimizer, resume keywords" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rescan.netlify.app/" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Rescan",
+      "description": "Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       }
-      /* Custom scrollbar for better aesthetics */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0f172a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
-      }
-    </style>
+    }
+    </script>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rescan.netlify.app/" />
+  <meta property="og:title" content="Rescan - AI Resume Analyzer & ATS Checker" />
+  <meta property="og:description"
+    content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
+  <meta property="og:image" content="https://rescan.netlify.app/preview.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://rescan.netlify.app/" />
+  <meta property="twitter:title" content="Rescan - AI Resume Analyzer & ATS Checker" />
+  <meta property="twitter:description"
+    content="Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters." />
+  <meta property="twitter:image" content="https://rescan.netlify.app/preview.png" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+      /* slate-950 */
+      color: #f8fafc;
+      /* slate-50 */
+    }
+
+    /* Custom scrollbar for better aesthetics */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -62,10 +90,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
