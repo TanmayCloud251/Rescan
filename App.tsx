@@ -4,11 +4,12 @@ import { Helmet } from 'react-helmet-async';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
-import Dashboard from './components/Dashboard';
-import AnalysisResultView from './components/AnalysisResult';
 import { AppView, AnalysisResult, HistoryItem } from './types';
-import { analyzeResume } from './services/groqService';
 import { Loader2 } from 'lucide-react';
+
+// Lazy load components to optimize initial JS bundle size
+const Dashboard = React.lazy(() => import('./components/Dashboard'));
+const AnalysisResultView = React.lazy(() => import('./components/AnalysisResult'));
 
 const generateId = () => {
   if (typeof crypto !== 'undefined' && crypto.randomUUID) {
@@ -46,6 +47,8 @@ const App: React.FC = () => {
     setIsLoading(true);
     setCurrentView(AppView.ANALYZING);
     try {
+      // Dynamically import groqService only when needed to optimize initial JS bundle size
+      const { analyzeResume } = await import('./services/groqService');
       const result = await analyzeResume(file);
       setAnalysisResult(result);
       saveToHistory(result);
@@ -117,13 +120,29 @@ const App: React.FC = () => {
 
       case AppView.RESULT:
         return analysisResult ? (
-          <AnalysisResultView result={analysisResult} onReanalyze={handleReanalyze} />
+          <React.Suspense fallback={
+            <div className="min-h-[calc(100vh-64px)] flex flex-col items-center justify-center bg-slate-950">
+              <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
+              <p className="text-slate-400">Loading analysis report...</p>
+            </div>
+          }>
+            <AnalysisResultView result={analysisResult} onReanalyze={handleReanalyze} />
+          </React.Suspense>
         ) : (
           <div className="flex items-center justify-center h-screen text-slate-400">Error loading results</div>
         );
 
       case AppView.DASHBOARD:
-        return <Dashboard onViewResult={handleViewHistoryItem} />;
+        return (
+          <React.Suspense fallback={
+            <div className="min-h-[calc(100vh-64px)] flex flex-col items-center justify-center bg-slate-950">
+              <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
+              <p className="text-slate-400">Loading dashboard...</p>
+            </div>
+          }>
+            <Dashboard onViewResult={handleViewHistoryItem} />
+          </React.Suspense>
+        );
 
       default:
         return <LandingPage onFileSelect={handleFileSelect} />;
