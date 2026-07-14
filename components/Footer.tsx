@@ -21,13 +21,13 @@ const Footer: React.FC = () => {
               Empowering job seekers with AI-driven resume analysis. Get professional feedback and ATS optimization in seconds.
             </p>
             <div className="flex items-center gap-4">
-              <a href="https://github.com/TanmayCloud251" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+              <a href="https://github.com/TanmayCloud251" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile of Tanmay Mishra" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/tanmaymishra251" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+              <a href="https://www.instagram.com/tanmaymishra251" target="_blank" rel="noopener noreferrer" aria-label="Instagram profile of Tanmay Mishra" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="mailto:tanmaycloud251@gmail.com" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
+              <a href="mailto:tanmaycloud251@gmail.com" aria-label="Email Tanmay Mishra" className="p-2 bg-slate-900 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
@@ -66,10 +66,10 @@ const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-400 text-sm">
             © {currentYear} RESCAN. All rights reserved.
           </p>
-          <div className="flex items-center gap-1 text-slate-500 text-sm">
+          <div className="flex items-center gap-1 text-slate-400 text-sm">
             <span>Built with</span>
             <Heart className="w-4 h-4 text-red-500 fill-red-500" />
             <span>by</span>

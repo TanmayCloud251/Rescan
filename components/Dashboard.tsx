@@ -120,7 +120,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                   <Activity className="w-3 h-3" /> System Operational
                 </div>
                 <h1 className="text-5xl font-black text-white tracking-tight">
-                  Recruitment <span className="text-slate-500">Dashboard</span>
+                  Recruitment <span className="text-slate-400">Dashboard</span>
                 </h1>
                 <p className="text-slate-400 max-w-md">
                   Professional-grade analysis of your professional trajectory. Review, optimize, and excel.
@@ -157,8 +157,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                         </div>
                     )}
                 </div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Average Score</p>
-                <h3 className="text-3xl font-black text-white">{stats.avgScore}<span className="text-sm text-slate-600 ml-1 font-bold">/100</span></h3>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Average Score</p>
+                <h3 className="text-3xl font-black text-white">{stats.avgScore}<span className="text-sm text-slate-400 ml-1 font-bold">/100</span></h3>
                 <div className="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
                     <div className="h-full bg-blue-500 group-hover:bg-blue-400 transition-colors" style={{ width: `${stats.avgScore}%` }}></div>
                 </div>
@@ -171,8 +171,8 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                         <Award className="w-5 h-5" />
                     </div>
                 </div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Peak Score</p>
-                <h3 className="text-3xl font-black text-white">{stats.highestScore}<span className="text-sm text-slate-600 ml-1 font-bold">MAX</span></h3>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Peak Score</p>
+                <h3 className="text-3xl font-black text-white">{stats.highestScore}<span className="text-sm text-slate-400 ml-1 font-bold">MAX</span></h3>
                 <div className="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
                     <div className="h-full bg-indigo-500 group-hover:bg-indigo-400 transition-colors" style={{ width: `${stats.highestScore}%` }}></div>
                 </div>
@@ -185,9 +185,9 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                         <FileText className="w-5 h-5" />
                     </div>
                 </div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Total Audits</p>
-                <h3 className="text-3xl font-black text-white">{stats.total}<span className="text-sm text-slate-600 ml-1 font-bold">SCANS</span></h3>
-                <p className="mt-2 text-[10px] text-slate-500 font-medium">History depth: {history.length} items</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Audits</p>
+                <h3 className="text-3xl font-black text-white">{stats.total}<span className="text-sm text-slate-400 ml-1 font-bold">SCANS</span></h3>
+                <p className="mt-2 text-[10px] text-slate-400 font-medium">History depth: {history.length} items</p>
             </div>
 
             {/* Efficiency */}
@@ -197,7 +197,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                         <Briefcase className="w-5 h-5" />
                     </div>
                 </div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Market Readiness</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Market Readiness</p>
                 <h3 className="text-3xl font-black text-white">{stats.avgScore > 75 ? 'HIGH' : stats.avgScore > 50 ? 'MID' : 'LOW'}</h3>
                 <div className="mt-4 flex gap-1">
                     {[1, 2, 3, 4, 5].map(i => (
@@ -219,7 +219,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                                 <BarChart3 className="w-5 h-5 text-blue-500" />
                                 Growth Trajectory
                             </h2>
-                            <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Last 10 Performance Metrics</p>
+                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">Last 10 Performance Metrics</p>
                         </div>
                     </div>
                     
@@ -238,13 +238,13 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                                         dataKey="name" 
                                         axisLine={false} 
                                         tickLine={false} 
-                                        tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+                                        tick={{fill: '#94a3b8', fontSize: 10, fontWeight: 600}} 
                                         dy={10} 
                                     />
                                     <YAxis 
                                         axisLine={false} 
                                         tickLine={false} 
-                                        tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+                                        tick={{fill: '#94a3b8', fontSize: 10, fontWeight: 600}} 
                                         domain={[0, 100]} 
                                     />
                                     <Tooltip 
@@ -290,7 +290,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                             </div>
                             <div>
                                 <h5 className="font-bold text-white">Career Acceleration</h5>
-                                <p className="text-xs text-slate-500">Optimized resumes are 3x more likely to land interviews.</p>
+                                <p className="text-xs text-slate-400">Optimized resumes are 3x more likely to land interviews.</p>
                             </div>
                         </div>
                     </div>
@@ -303,11 +303,12 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                     <div className="p-6 border-b border-slate-800/50 flex justify-between items-center">
                         <div>
                             <h2 className="text-lg font-bold text-white">Recent Scans</h2>
-                            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Document History</p>
+                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Document History</p>
                         </div>
                         <select 
                           value={sortBy}
                           onChange={(e) => setSortBy(e.target.value as any)}
+                          aria-label="Sort recent scans by"
                           className="bg-slate-950 border border-slate-800 rounded-lg text-[9px] font-black uppercase tracking-widest text-slate-400 px-2 py-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500 transition-all"
                         >
                             <option value="date">Date</option>
@@ -332,7 +333,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                                                 <h4 className="font-bold text-white text-sm truncate group-hover:text-blue-500 transition-colors">
                                                     {item.fileName}
                                                 </h4>
-                                                <div className="flex items-center gap-2 text-[10px] text-slate-500 font-bold uppercase mt-1">
+                                                <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold uppercase mt-1">
                                                     <Calendar className="w-3 h-3" />
                                                     {new Date(item.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                                 </div>
@@ -354,7 +355,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                                         </button>
                                         <button 
                                           onClick={(e) => handleDelete(item.id, e)}
-                                          className="p-2 bg-slate-800 hover:bg-red-500/10 text-slate-500 hover:text-red-500 rounded-lg transition-all"
+                                          className="p-2 bg-slate-800 hover:bg-red-500/10 text-slate-400 hover:text-red-500 rounded-lg transition-all"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
@@ -363,7 +364,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onViewResult }) => {
                             ))
                         ) : (
                             <div className="p-12 text-center">
-                                <p className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">No documents found</p>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">No documents found</p>
                             </div>
                         )}
                     </div>

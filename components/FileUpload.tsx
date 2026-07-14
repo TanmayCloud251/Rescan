@@ -65,6 +65,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
       >
         <input
           type="file"
+          aria-label="Upload resume file"
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           onChange={handleFileInput}
           accept=".pdf,.png,.jpg,.jpeg"
@@ -88,7 +89,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileSelect }) => {
             </div>
         )}
 
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-slate-400">
             <span className="flex items-center gap-1"><FileText className="w-3 h-3"/> PDF</span>
             <span className="w-1 h-1 rounded-full bg-slate-600"></span>
             <span>JPG</span>

@@ -193,7 +193,7 @@ ${result.keywords.join(', ')}
                             <h3 className="text-slate-400 font-medium text-sm print:text-slate-600">ATS Score</h3>
                             <div className="mt-2 flex items-baseline gap-2">
                                 <span className="text-4xl font-extrabold text-white print:text-slate-900">{result.atsScore}</span>
-                                <span className="text-sm font-medium text-slate-500">/100</span>
+                                <span className="text-sm font-medium text-slate-400">/100</span>
                             </div>
                         </div>
                         <div className="mt-4 text-xs font-semibold text-green-500 flex items-center">
@@ -209,7 +209,7 @@ ${result.keywords.join(', ')}
                                 <span className="text-4xl font-extrabold text-white print:text-slate-900">{result.totalMistakes}</span>
                             </div>
                         </div>
-                        <div className="mt-4 text-xs font-semibold text-slate-500 flex items-center">
+                        <div className="mt-4 text-xs font-semibold text-slate-400 flex items-center">
                             Includes typos & grammar
                         </div>
                     </div>
@@ -233,7 +233,7 @@ ${result.keywords.join(', ')}
                             <h3 className="text-slate-400 font-medium text-sm print:text-slate-600">Formatting Score</h3>
                             <div className="mt-2 flex items-baseline gap-2">
                                 <span className="text-4xl font-extrabold text-white print:text-slate-900">{result.formattingScore}</span>
-                                <span className="text-sm font-medium text-slate-500">%</span>
+                                <span className="text-sm font-medium text-slate-400">%</span>
                             </div>
                         </div>
                         <div className="mt-4 text-xs font-semibold text-blue-500 flex items-center">
@@ -268,7 +268,7 @@ ${result.keywords.join(', ')}
                             </ResponsiveContainer>
                             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
                                 <span className="text-2xl font-bold text-white print:text-slate-900">{result.atsScore}</span>
-                                <span className="text-slate-500 text-xs uppercase">/ 100</span>
+                                <span className="text-slate-400 text-xs uppercase">/ 100</span>
                             </div>
                          </div>
                          <div className="flex-1">
@@ -329,21 +329,21 @@ ${result.keywords.join(', ')}
                         <div className="flex border-b border-slate-800 mb-6 print:hidden">
                             <button 
                                 onClick={() => setActiveTab('detailed')}
-                                className={`pb-3 px-1 mr-6 text-sm font-semibold transition-colors relative ${activeTab === 'detailed' ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                                className={`pb-3 px-1 mr-6 text-sm font-semibold transition-colors relative ${activeTab === 'detailed' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-300'}`}
                             >
                                 Detailed Breakdown
                                 {activeTab === 'detailed' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-t-full"></div>}
                             </button>
                             <button 
                                 onClick={() => setActiveTab('summary')}
-                                className={`pb-3 px-1 mr-6 text-sm font-semibold transition-colors relative ${activeTab === 'summary' ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                                className={`pb-3 px-1 mr-6 text-sm font-semibold transition-colors relative ${activeTab === 'summary' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-300'}`}
                             >
                                 Summary
                                 {activeTab === 'summary' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-t-full"></div>}
                             </button>
                             <button 
                                 onClick={() => setActiveTab('keywords')}
-                                className={`pb-3 px-1 text-sm font-semibold transition-colors relative ${activeTab === 'keywords' ? 'text-blue-500' : 'text-slate-500 hover:text-slate-300'}`}
+                                className={`pb-3 px-1 text-sm font-semibold transition-colors relative ${activeTab === 'keywords' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-300'}`}
                             >
                                 Keywords
                                 {activeTab === 'keywords' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-t-full"></div>}
@@ -363,6 +363,7 @@ ${result.keywords.join(', ')}
                                             <div key={idx} className={`bg-slate-900 border rounded-xl overflow-hidden shadow-sm transition-all hover:shadow-md print:bg-white print:border-slate-200 print:shadow-none ${styles.border}`}>
                                                 <button 
                                                     onClick={() => setOpenIssueIndex(isOpen ? null : idx)}
+                                                    aria-expanded={isOpen}
                                                     className="w-full flex items-center justify-between p-5 text-left bg-slate-900 hover:bg-slate-800/50 transition-colors print:pointer-events-none print:bg-white"
                                                 >
                                                     <div className="flex items-center gap-4">
@@ -372,7 +373,7 @@ ${result.keywords.join(', ')}
                                                         <h4 className="text-sm font-semibold text-white print:text-slate-900">{issue.title}</h4>
                                                     </div>
                                                     <div className="print:hidden">
-                                                        {isOpen ? <ChevronUp className="w-5 h-5 text-slate-500" /> : <ChevronDown className="w-5 h-5 text-slate-500" />}
+                                                        {isOpen ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}
                                                     </div>
                                                 </button>
                                                 <div className={`${isOpen ? 'block' : 'hidden'} print:block px-5 pb-5 pt-0`}>
@@ -408,7 +409,7 @@ ${result.keywords.join(', ')}
                                                 <h3 className="text-lg font-bold text-white">Analysis Summary</h3>
                                                 <button 
                                                     onClick={handleCopySummary}
-                                                    className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 transition-colors"
+                                                    className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-300 transition-colors"
                                                 >
                                                     {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
                                                     {copied ? 'Copied' : 'Copy'}
@@ -432,7 +433,7 @@ ${result.keywords.join(', ')}
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-bold text-white">Skills & Keywords</h3>
-                                            <p className="text-slate-500 text-sm mt-1">
+                                            <p className="text-slate-400 text-sm mt-1">
                                                 Key skills detected in your resume.
                                             </p>
                                         </div>
@@ -445,7 +446,7 @@ ${result.keywords.join(', ')}
                                                 </span>
                                             ))
                                         ) : (
-                                            <p className="text-slate-500 italic">No specific keywords data available.</p>
+                                            <p className="text-slate-400 italic">No specific keywords data available.</p>
                                         )}
                                     </div>
                                 </div>

@@ -47,7 +47,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
             </div>
           </div>
 
-          <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-sm text-slate-500 font-medium">
+          <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-sm text-slate-400 font-medium">
               <span className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-blue-500" /> Private & Encrypted
               </span>
@@ -66,7 +66,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onFileSelect }) => {
       {/* Trust Bar */}
       <section className="py-12 border-y border-slate-900 bg-slate-950/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-bold text-slate-500 uppercase tracking-[0.3em] mb-8">Optimized for Industry Giants</p>
+          <p className="text-center text-xs font-bold text-slate-400 uppercase tracking-[0.3em] mb-8">Optimized for Industry Giants</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-30 grayscale contrast-125">
             <span className="text-2xl font-black text-white italic tracking-tighter">Google</span>
             <span className="text-2xl font-black text-white tracking-tighter">AMAZON</span>
