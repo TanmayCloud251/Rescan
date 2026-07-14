@@ -136,19 +136,19 @@ const App: React.FC = () => {
         return {
           title: "Rescan - AI Resume Analyzer & ATS Checker",
           description: "Free AI resume analyzer & ATS scanner. Audit your CV for keyword gaps, formatting, and grammar errors using advanced AI. Optimize your resume & get hired!",
-          canonical: "https://rescan-ai.vercel.app/"
+          canonical: "https://rescan.netlify.app/"
         };
       case AppView.DASHBOARD:
         return {
           title: "Dashboard | Rescan Resume Scanner",
           description: "Access your Rescan dashboard to manage past resume audits, monitor ATS compatibility progress, and continue optimizing your CV for search and recruiter match.",
-          canonical: "https://rescan-ai.vercel.app/dashboard"
+          canonical: "https://rescan.netlify.app/dashboard"
         };
       case AppView.ANALYZING:
         return {
           title: "Analyzing Resume... | Rescan",
           description: "Analyzing your resume for ATS optimization... Our AI-powered scanner is auditing your CV against industry standards, parsing keywords, and formatting.",
-          canonical: "https://rescan-ai.vercel.app/analyzing"
+          canonical: "https://rescan.netlify.app/analyzing"
         };
       case AppView.RESULT:
         return {
@@ -158,13 +158,13 @@ const App: React.FC = () => {
           description: analysisResult
             ? `Detailed ATS resume scan results for ${analysisResult.fileName}. Your score is ${analysisResult.atsScore}/100. Check keywords breakdown, grammar, and formatting fixes.`
             : "Review your detailed ATS score, keywords analysis, structure checks, and resume improvement recommendations.",
-          canonical: "https://rescan-ai.vercel.app/results"
+          canonical: "https://rescan.netlify.app/results"
         };
       default:
         return {
           title: "Rescan - AI Resume Analyzer & ATS Checker",
           description: "Free AI resume analyzer & ATS checker. Audit your CV for keyword gaps, formatting, and grammar errors. Optimize your resume to pass recruitment filters.",
-          canonical: "https://rescan-ai.vercel.app/"
+          canonical: "https://rescan.netlify.app/"
         };
     }
   };
@@ -177,11 +177,20 @@ const App: React.FC = () => {
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
         <link rel="canonical" href={seo.canonical} />
+        
+        {/* Open Graph / Facebook / LinkedIn */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={seo.canonical} />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
-        <meta property="og:url" content={seo.canonical} />
-        <meta property="twitter:title" content={seo.title} />
-        <meta property="twitter:description" content={seo.description} />
+        <meta property="og:image" content="https://rescan.netlify.app/preview.png" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={seo.canonical} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:description" content={seo.description} />
+        <meta name="twitter:image" content="https://rescan.netlify.app/preview.png" />
       </Helmet>
       <Header 
         currentView={currentView} 
